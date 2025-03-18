@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Route, Routes, useLocation } from "react-router-dom";
 import Home from "./pages/Home";
 import Footer from "./components/Footer/Footer";
 import "../src/components/Global/Global.css";
@@ -11,31 +11,51 @@ import "aos/dist/aos.css";
 import About from "./pages/AboutUs/About";
 import Projects from "./pages/Projects/Projects";
 import ContactUs from "./pages/ContactUs/ContactUs";
+import Loader from "./components/loader";
+
+const ScrollToTop = () => {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    AOS.init({ duration: 1000, once: true });
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+};
 
 const App = () => {
-  const ScrollToTop = () => {
-    const { pathname } = useLocation();
+  const [loading, setLoading] = useState(false);
+  const location = useLocation(); 
 
-    useEffect(() => {
-      AOS.init({ duration: 1000, once: true });
-      window.scrollTo(0, 0);
-    }, [pathname]);
+  useEffect(() => {
+    setLoading(true); 
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 1500);
 
-    return null;
-  };
+    return () => clearTimeout(timer); 
+  }, [location.pathname]); 
+
   return (
     <main>
-      <Header />
-      <ScrollToTop />
-      <ScrollToTopButton />
-      <Routes>
-        <Route path={"/"} element={<Home />} />
-        <Route path={"/about"} element={<About />} />
-        <Route path={"/services"} element={<Services />} />
-        <Route path={"/projects"} element={<Projects />} />
-        <Route path={"/contact"} element={<ContactUs />} />
-      </Routes>
-      <Footer />
+      {loading ? (
+        <Loader />
+      ) : (
+        <>
+          <Header />
+          <ScrollToTop />
+          <ScrollToTopButton />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/services" element={<Services />} />
+            <Route path="/projects" element={<Projects />} />
+            <Route path="/contact" element={<ContactUs />} />
+          </Routes>
+          <Footer />
+        </>
+      )}
     </main>
   );
 };
