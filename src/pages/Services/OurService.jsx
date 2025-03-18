@@ -14,7 +14,7 @@ const OurService = () => {
               loading="lazy"
               data-aos="fade-up-right"
             />
-            <div className="pl-12 pr-6 h-[450px]">
+            <div className="md:pl-12 px-5 md:pr-6 md:h-[450px]">
               <img
                 className="relative rounded w-full h-full"
                 src="https://cdn.pixabay.com/photo/2019/02/06/16/32/architect-3979490_640.jpg"
