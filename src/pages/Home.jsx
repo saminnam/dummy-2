@@ -5,6 +5,7 @@ import AboutUs from "../components/AboutUs/AboutUs";
 import WhyChooseUs from "../components/WhyChoosUs/WhyChooseUs";
 import Cta from "../components/CallToAction/Cta";
 import Testimonials from "../components/Testimonials/Testimonials";
+import OurSkills from "../components/OurSkills/OurSkills";
 
 const Home = () => {
   return (
@@ -12,6 +13,7 @@ const Home = () => {
       <Hero />
       <AboutUs />
       <WhyChooseUs />
+      <OurSkills />
       <Cta />
       <Testimonials />
     </main>
